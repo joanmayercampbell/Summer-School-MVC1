@@ -3,6 +3,10 @@
     padding-bottom: 20px;
 }
 
+.jumbotron {
+    background-image:url(https://www.google.com/search?q=school+images&espv=2&biw=1366&bih=584&tbm=isch&imgil=gP8dlolaSQ1cPM%253A%253B-rIEsamY4VK3yM%253Bhttp%25253A%25252F%25252Fmeptsa.org%25252F&source=iu&pf=m&fir=gP8dlolaSQ1cPM%253A%252C-rIEsamY4VK3yM%252C_&usg=__zkdcEc2bfjbJCAz-4Cw-EX-31sc%3D);
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;

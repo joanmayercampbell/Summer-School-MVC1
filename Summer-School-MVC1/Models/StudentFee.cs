@@ -17,6 +17,6 @@ namespace Summer_School_MVC1.Models
         public int StudentID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public Nullable<decimal> EnrollmentFee { get; set; }
+        public decimal EnrollmentFee { get; set; }
     }
 }

@@ -41,13 +41,50 @@ namespace Summer_School_MVC1.Controllers
             return View();
         }
 
+        // method to return student fee based on a number of conditons
+        private int returnStudentFees(string name1, string name2)
+        {
+            int fee = 200;
+            string firstname = name1.ToLower();
+            string lastname = name2.ToLower();
+
+            if ((firstname.Contains("malfoy")) || (lastname.Contains("malfoy")))
+            {
+                return (-1);
+            }
+
+            if (firstname == lastname)
+            {
+                fee = Convert.ToInt32(fee * .90);
+            }
+
+            if ((firstname.Contains("longbottom") || lastname.Contains("longbottom")) & (db.StudentFees.Count() < 10))
+            {
+                fee = 0;
+            }
+
+            if ((firstname.Contains("potter")) || (lastname.Contains("potter")))
+            {
+                fee = Convert.ToInt32(fee * .50);
+            }
+
+            return fee;
+        }
+
         // POST: StudentFees/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName,EnrollmentFee")] StudentFee studentFee)
+        public ActionResult Create([Bind(Include = "StudentID,FirstName,LastName")] StudentFee studentFee)
         {
+            studentFee.EnrollmentFee = returnStudentFees(studentFee.FirstName, studentFee.LastName);
+
+            if (studentFee.EnrollmentFee == -1)
+            {
+                return View(studentFee);
+            }
+
             if (ModelState.IsValid)
             {
                 db.StudentFees.Add(studentFee);
