@@ -53,7 +53,7 @@ namespace Summer_School_MVC1.Controllers
                 return (-1);
             }
 
-            if (firstname == lastname)
+            if (firstname.First() == lastname.First())
             {
                 fee = Convert.ToInt32(fee * .90);
             }
