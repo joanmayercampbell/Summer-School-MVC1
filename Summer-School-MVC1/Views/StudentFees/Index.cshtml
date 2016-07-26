@@ -7,7 +7,15 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+        @if (ViewBag.EnrollmentCount <= 15)
+          {
+            @Html.ActionLink("Create New", "Create")
+          }
+         else
+          {
+           <h3 class="text-danger">Enrollment limit reached</h3> 
+          }
+
 </p>
 <table class="table">
     <tr>
@@ -23,23 +31,28 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnrollmentFee)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StudentID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StudentID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StudentID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentFee)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.StudentID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.StudentID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.StudentID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div class="student-total">
+    <b class="amount-total">Total Student Enrollment fees =  </b>@String.Format(" {0:C}",ViewBag.Sum)
+</div>

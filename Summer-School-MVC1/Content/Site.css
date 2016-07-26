@@ -14,6 +14,10 @@
     text-align:center; 
 }
 
+#limitreached {
+    color:red;
+}
+
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
@@ -22,10 +26,16 @@
 
 .enrollspace {
     background-color:lightblue;
-    padding:10px 20px;
-    color:red;
+    padding:10px 20px;    
     text-align:center;
 
+}
+.enrollspace:hover {
+    background-image: url('../images/schoolpicture.jpg');
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center center;
+    color:black;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 

@@ -17,6 +17,8 @@ namespace Summer_School_MVC1.Controllers
         // GET: StudentFees
         public ActionResult Index()
         {
+            ViewBag.Sum = db.StudentFees.Sum(item => item.EnrollmentFee);
+            ViewBag.EnrollmentCount = db.StudentFees.Count();
             return View(db.StudentFees.ToList());
         }
 
@@ -45,10 +47,30 @@ namespace Summer_School_MVC1.Controllers
         private int returnStudentFees(string name1, string name2)
         {
             int fee = 200;
+            if (name1 == null)
+            {
+                name1 = "";
+            }
+            if (name2 == null)
+            {
+                name2 = "";
+            }
             string firstname = name1.ToLower();
             string lastname = name2.ToLower();
 
             if ((firstname.Contains("malfoy")) || (lastname.Contains("malfoy")))
+            {
+                return (-1);
+            }
+            if ((firstname.Contains("tom")) || (lastname.Contains("tom")))
+            {
+                return (-1);
+            }
+            if ((firstname.Contains("riddle")) || (lastname.Contains("riddle")))
+            {
+                return (-1);
+            }
+            if ((firstname.Contains("voldemort")) || (lastname.Contains("voldemort")))
             {
                 return (-1);
             }
@@ -58,7 +80,7 @@ namespace Summer_School_MVC1.Controllers
                 fee = Convert.ToInt32(fee * .90);
             }
 
-            if ((firstname.Contains("longbottom") || lastname.Contains("longbottom")) & (db.StudentFees.Count() < 10))
+            if ((firstname.Contains("longbottom") || lastname.Contains("longbottom")) & (db.StudentFees.Count() <= 10))
             {
                 fee = 0;
             }
@@ -82,12 +104,14 @@ namespace Summer_School_MVC1.Controllers
 
             if (studentFee.EnrollmentFee == -1)
             {
-                return View(studentFee);
+                ViewBag.Result = "Cannot be enrolled. He who must not be named !!";
+                return View();
             }
 
             if (ModelState.IsValid)
             {
                 db.StudentFees.Add(studentFee);
+                ViewBag.EnrollmentNumber = db.StudentFees.Count();
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
