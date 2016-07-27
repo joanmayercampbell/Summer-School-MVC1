@@ -17,6 +17,15 @@
           }
 
 </p>
+<p>
+    @using (Html.BeginForm())
+    {
+    <p>
+        Search for: @Html.TextBox("searchString")
+        <input type="submit" value="Search" />
+    </p>
+    }
+</p>
 <table class="table">
     <tr>
         <th>

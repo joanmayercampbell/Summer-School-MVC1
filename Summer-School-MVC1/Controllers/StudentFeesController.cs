@@ -15,11 +15,23 @@ namespace Summer_School_MVC1.Controllers
         private SummerSchoolEntities db = new SummerSchoolEntities();
 
         // GET: StudentFees
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             ViewBag.Sum = db.StudentFees.Sum(item => item.EnrollmentFee);
             ViewBag.EnrollmentCount = db.StudentFees.Count();
-            return View(db.StudentFees.ToList());
+
+            var students = from item in db.StudentFees
+                           select item;
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = from item in students
+                           where item.LastName.Contains(searchString) ||
+                                 item.FirstName.Contains(searchString)
+                           select item;
+            }
+
+            return View(students.ToList());
         }
 
         // GET: StudentFees/Details/5
